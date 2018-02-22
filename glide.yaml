@@ -2,3 +2,5 @@ package: .
 import:
 - package: github.com/gin-gonic/gin
   version: ^1.2.0
+- package: github.com/mattn/go-sqlite3
+  version: ^1.6.0

@@ -1,5 +1,5 @@
-hash: 4f7f72064795d3fcaaaf2cc63f1cdc7649ccef3bdfa42a995f402136ded4cdec
-updated: 2018-02-21T18:51:03.812085685Z
+hash: 73a6c10ccd3fc0f444335aa9933962a895477963a8d4be99affd069e7fea98a0
+updated: 2018-02-22T00:47:10.814815476Z
 imports:
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
@@ -14,6 +14,8 @@ imports:
   - proto
 - name: github.com/mattn/go-isatty
   version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
+- name: github.com/mattn/go-sqlite3
+  version: 6c771bb9887719704b210e87e934f08be014bdb1
 - name: github.com/ugorji/go
   version: b5b949564861e43a03568a0b134c135cf318e5c8
   subpackages:
