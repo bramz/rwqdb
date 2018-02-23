@@ -14,20 +14,20 @@ func submitQuote(context *gin.Context) {
 	context.HTML(http.StatusOK, "public/index.tmpl", gin.H{
 		"title": "RootWire Quote Database",
 	})
-
 	quote := context.PostForm("quote")
+    fmt.Println(quote)
 
-	stmt, err := db.Prepare("INSERT INTO qdb (quote) values (?)")
+	stmt, err := db.Prepare("INSERT INTO quotes (quote) values (?)")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-    res, err := stmt.Exec(quote)
+    _, err = stmt.Exec(quote)
+
     if err != nil {
         fmt.Println(err)
-    } else {
-        fmt.Println("query executed")
     }
+
 }
 
 func randomQuote(context *gin.Context) {
@@ -42,13 +42,15 @@ func deleteQuote(context *gin.Context) {
 func main() {
 	router := gin.Default()
 
-	connect, err := sql.Open("sqlite3", "./qdb.db")
+	connect, err := sql.Open("sqlite3", "qdb.db")
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
     db = connect
+    defer db.Close()
+    fmt.Println(db)
 	//    router.LoadGLOB("public/*")
 	router.LoadHTMLFiles("public/index.tmpl")
 
