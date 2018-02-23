@@ -11,29 +11,51 @@ import (
 var db *sql.DB
 
 func submitQuote(context *gin.Context) {
-	context.HTML(http.StatusOK, "public/index.tmpl", gin.H{
-		"title": "RootWire Quote Database",
+	context.HTML(http.StatusOK, "public/submit.tmpl", gin.H{
+		"header": "Submit Quote",
 	})
 	quote := context.PostForm("quote")
-    fmt.Println(quote)
+	fmt.Println(quote)
 
 	stmt, err := db.Prepare("INSERT INTO quotes (quote) values (?)")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-    _, err = stmt.Exec(quote)
+	_, err = stmt.Exec(quote)
 
-    if err != nil {
-        fmt.Println(err)
-    }
+	if err != nil {
+		fmt.Println(err)
+	}
 
 }
 
 func randomQuote(context *gin.Context) {
+    rows, err := db.Query("SELECT id, quote FROM quotes ORDER BY RANDOM() LIMIT 1")
+    if err != nil {
+        panic(err)
+    }
+
+    var id int
+    var quote string
+
+    for rows.Next(){
+        err = rows.Scan(&id, &quote)
+
+        if err != nil {
+            panic(err)
+        }
+
+        context.HTML(http.StatusOK, "public/index.tmpl", gin.H{
+            "header": "Random Quotes",
+            "quote": quote,
+        })
+    }
+
 }
 
 func searchQuote(context *gin.Context) {
+
 }
 
 func deleteQuote(context *gin.Context) {
@@ -48,13 +70,12 @@ func main() {
 		fmt.Println(err)
 	}
 
-    db = connect
-    defer db.Close()
-    fmt.Println(db)
-	//    router.LoadGLOB("public/*")
-	router.LoadHTMLFiles("public/index.tmpl")
+	db = connect
+	defer db.Close()
 
-	router.GET("/", submitQuote)
+	router.LoadHTMLFiles("public/index.tmpl", "public/submit.tmpl")
+
+	router.GET("/", randomQuote)
 	router.POST("/submit", submitQuote)
 	router.POST("/search/:id", searchQuote)
 	router.POST("/delete/:id", deleteQuote)

@@ -1,0 +1,16 @@
+{{ define "public/submit.tmpl" }}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ .title }}</title>
+  </head>
+  <body>
+    <h1>{{ .header }}</h1>
+    <form action="/submit" method="POST">
+        <p><label for="quote">Quote </label></p>
+        <p><textarea rows="6" cols="50" name="quote"></textarea></p>
+        <button type="submit">Submit Quote</button>
+    </form>
+  </body>
+</html>
+{{ end }}

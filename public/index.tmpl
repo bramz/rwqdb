@@ -5,12 +5,9 @@
     <title>{{ .title }}</title>
   </head>
   <body>
-    <h1>RWQDB</h1>
-    <form action="/submit" method="POST">
-        <p><label for="quote">Quote </label></p>
-        <p><textarea rows="6" cols="50" name="quote"></textarea></p>
-        <button type="submit">Submit Quote</button>
-    </form>
+    <h1>{{ .header }}</h1>
+    <p><a href="/submit">Submit</a> | <a href="/search">Search</a></p>
+    <p>{{ .quote }}
   </body>
 </html>
 {{ end }}
