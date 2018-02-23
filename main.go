@@ -15,7 +15,6 @@ func submitQuote(context *gin.Context) {
 		"header": "Submit Quote",
 	})
 	quote := context.PostForm("quote")
-	fmt.Println(quote)
 
 	stmt, err := db.Prepare("INSERT INTO quotes (quote) values (?)")
 	if err != nil {
@@ -48,6 +47,7 @@ func randomQuote(context *gin.Context) {
 
         context.HTML(http.StatusOK, "public/index.tmpl", gin.H{
             "header": "Random Quotes",
+            "id": id,
             "quote": quote,
         })
     }
@@ -76,9 +76,9 @@ func main() {
 	router.LoadHTMLFiles("public/index.tmpl", "public/submit.tmpl")
 
 	router.GET("/", randomQuote)
-	router.POST("/submit", submitQuote)
+	router.GET("/submit", submitQuote)
+    router.POST("/submit", submitQuote)
 	router.POST("/search/:id", searchQuote)
 	router.POST("/delete/:id", deleteQuote)
-	router.GET("/random", randomQuote)
 	router.Run(":8080")
 }
