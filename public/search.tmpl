@@ -1,0 +1,16 @@
+{{ define "public/search.tmpl" }}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RootWire Quote Database</title>
+  </head>
+  <body>
+    <h1>{{ .header }}</h1>
+    <form action="/search" method="POST">
+        <p><label for="id">Quote ID </label></p>
+        <p><input type="text" name="id" /></p>
+        <button type="submit">Search</button>
+    </form>
+  </body>
+</html>
+{{ end }}

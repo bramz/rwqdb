@@ -1,4 +1,4 @@
-{{ define "public/index.tmpl" }}
+{{ define "public/output.tmpl" }}
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,8 +6,7 @@
   </head>
   <body>
     <h1>{{ .header }}</h1>
-    <p><a href="/submit">Submit</a> | <a href="/search">Search</a></p>
-    <p>ID: {{ .id }} Quote: {{ .quote }}</p>
+    <p>ID: {{ .id }} Quote: {{ .quote }} Created: {{ .created }}</p>
   </body>
 </html>
 {{ end }}
