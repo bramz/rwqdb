@@ -64,9 +64,9 @@ func searchQuote(context *gin.Context) {
 	var created string
 	var quote string
 
-    stmt, err := db.Prepare("select created, quote from quotes where id = ?")
+	stmt, err := db.Prepare("select created, quote from quotes where id = ?")
 
-//	rows, err := db.Query("select created, quote from quotes where id = ?", 1)
+	//	rows, err := db.Query("select created, quote from quotes where id = ?", 1)
 
 	if err != nil {
 		panic(err)
@@ -74,11 +74,11 @@ func searchQuote(context *gin.Context) {
 
 	defer stmt.Close()
 
-    rows, err := stmt.Query(id)
+	rows, err := stmt.Query(id)
 
-    if err != nil {
-        panic(err)
-    }
+	if err != nil {
+		panic(err)
+	}
 
 	for rows.Next() {
 		err := rows.Scan(&created, &quote)
